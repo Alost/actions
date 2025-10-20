@@ -1,0 +1,11 @@
+name: Debug
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
