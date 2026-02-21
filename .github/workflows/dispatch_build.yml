@@ -1,10 +1,10 @@
-name: Remote Build
+name: Dispatch Build
 on:
   repository_dispatch:
-    types: [remote_build]
+    types: [dispatch_build]
 
 jobs:
-  remote_build:
+  dispatch_build:
     runs-on: ${{ github.event.client_payload.runner }}
     permissions: write-all
     env:
