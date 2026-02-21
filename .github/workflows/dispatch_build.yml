@@ -15,7 +15,7 @@ jobs:
         with:
           repository: ${{ github.event.client_payload.repo.name }}
           ref: ${{ github.event.client_payload.repo.sha }}
-          # token: ${{ github.event.client_payload.token }}
+          token: ${{ github.event.token }}
           lfs: true
           fetch-depth: 1
 
