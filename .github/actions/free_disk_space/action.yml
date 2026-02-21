@@ -1,0 +1,53 @@
+name: "Free Disk Space"
+description: "free disk space"
+runs:
+  using: "composite"
+  steps:
+    - name: Before Free Disk Space
+      shell: bash
+      run: |
+        echo "Before free disk space"
+        echo "=============================================================================="
+        df -h
+        echo "=============================================================================="
+
+    - name: Optimize Disk Space
+      uses: hugoalh/disk-space-optimizer-ghaction@v0.8.1
+      with:
+        operate_sudo: "True"
+        general_include: ".+"
+        general_exclude: |-
+          ^GCC$
+          ^G\+\+$
+          Clang
+          LLVM
+        docker_include: ".+"
+        docker_prune: "True"
+        docker_clean: "True"
+        apt_prune: "True"
+        apt_clean: "True"
+        homebrew_prune: "True"
+        homebrew_clean: "True"
+        npm_prune: "True"
+        npm_clean: "True"
+        os_swap: "True"
+
+    # 会合并/mnt空间，但需要重新checkout
+    # - name: Free Disk Space
+    #   uses: easimon/maximize-build-space@master
+    #   with:
+    #     root-reserve-mb: 2048
+    #     swap-size-mb: 1
+    #     remove-dotnet: 'true'
+    #     remove-android: 'true'
+    #     remove-haskell: 'true'
+    #     remove-codeql: 'true'
+    #     remove-docker-images: 'true'
+
+    - name: After Free Disk Space
+      shell: bash
+      run: |
+        echo "After free disk space"
+        echo "=============================================================================="
+        df -h
+        echo "=============================================================================="

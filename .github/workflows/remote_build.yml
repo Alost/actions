@@ -1,0 +1,58 @@
+name: Remote Build
+on:
+  repository_dispatch:
+    types: [remote_build]
+
+jobs:
+  remote_build:
+    runs-on: ${{ github.event.client_payload.runner }}
+    permissions: write-all
+    env:
+      ACTIONS_RUNNER_DEBUG: true
+      ACTIONS_STEP_DEBUG: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.client_payload.repo }}
+          ref: ${{ github.event.client_payload.sha }}
+          # token: ${{ github.event.client_payload.token }}
+          lfs: true
+          fetch-depth: 1
+
+      - uses: ./.github/actions/free_disk_space
+        if: ${{ github.event.client_payload.free_disk_space }}
+
+      - uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event.client_payload.debug }}
+        with:
+          detached: true
+          timeout-minutes: 5
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+        if: ${{ github.event.client_payload.debug }}
+
+      - name: Run Script
+        shell: bash
+        run: ${{ github.event.client_payload.script }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.client_payload.artifact.name }}
+          path: ${{ github.event.client_payload.artifact.path }}
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        # Settings -> Actions -> General -> Workflow permissions -> Read and write permissions
+        with:
+          tag_name: ${{ github.event.client_payload.release.tag_name }}
+          name: ${{ github.event.client_payload.release.name }}
+          body: ${{ github.event.client_payload.release.body }}
+          files: ${{ github.event.client_payload.release.files }}
+          draft: false
+          prerelease: false
+
+      - uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        timeout-minutes: 2
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+        if: ${{ failure() }}
