@@ -15,7 +15,7 @@ jobs:
         with:
           repository: ${{ github.event.client_payload.repo.name }}
           ref: ${{ github.event.client_payload.repo.sha }}
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT }} # Settings-Developer Settings-Personal access tokens (classic)
           lfs: true
           fetch-depth: 1
 
