@@ -5,7 +5,7 @@ on:
 
 jobs:
   dispatch_build:
-    runs-on: ${{ github.event.client_payload.runner }}
+    runs-on: ${{ github.event.client_payload.build.runner }}
     permissions: write-all
     env:
       ACTIONS_RUNNER_DEBUG: true
@@ -13,29 +13,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.client_payload.repo }}
-          ref: ${{ github.event.client_payload.sha }}
+          repository: ${{ github.event.client_payload.repo.name }}
+          ref: ${{ github.event.client_payload.repo.sha }}
           # token: ${{ github.event.client_payload.token }}
           lfs: true
           fetch-depth: 1
 
       - uses: ./.github/actions/free_disk_space
-        if: ${{ github.event.client_payload.free_disk_space }}
+        if: ${{ github.event.client_payload.build.free_disk_space }}
 
       - uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event.client_payload.debug }}
+        if: ${{ github.event.client_payload.build.debug }}
         with:
           detached: true
           timeout-minutes: 5
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
-        if: ${{ github.event.client_payload.debug }}
+        if: ${{ github.event.client_payload.build.debug }}
 
       - name: Run Script
         shell: bash
-        run: ${{ github.event.client_payload.script }}
+        run: ${{ github.event.client_payload.build.script }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
+        if: ${{ github.event.client_payload.artifact.enable }}
         with:
           name: ${{ github.event.client_payload.artifact.name }}
           path: ${{ github.event.client_payload.artifact.path }}
@@ -43,6 +44,7 @@ jobs:
       - name: Upload Release
         uses: softprops/action-gh-release@v2
         # Settings -> Actions -> General -> Workflow permissions -> Read and write permissions
+        if: ${{ github.event.client_payload.release.enable }}
         with:
           tag_name: ${{ github.event.client_payload.release.tag_name }}
           name: ${{ github.event.client_payload.release.name }}
