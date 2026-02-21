@@ -54,6 +54,14 @@ jobs:
           prerelease: false
 
       - uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event.client_payload.build.end_debug }}
+        with:
+          detached: true
+          timeout-minutes: 5
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+        if: ${{ github.event.client_payload.build.end_debug }}
+
+      - uses: mxschmitt/action-tmate@v3
         if: ${{ failure() }}
         timeout-minutes: 2
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
