@@ -61,8 +61,22 @@ jobs:
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
         if: ${{ github.event.client_payload.build.end_debug }}
 
+      - uses: dawidd6/action-send-mail@v11
+        if: failure()
+        with:
+          server_address: ${{ secrets.SMTP_SERVER_ADDRESS }}
+          server_port: ${{ secrets.SMTP_SERVER_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          from: ${{ secrets.SMTP_USERNAME }}
+          to: ${{ secrets.SMTP_TO }}
+          content_type: text/plain
+          subject: Github Actions ${{ github.event.client_payload.name }} Build Failed
+          body: |
+            ${{ job.status }}
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       - uses: mxschmitt/action-tmate@v3
-        if: ${{ failure() }}
+        if: failure()
         timeout-minutes: 2
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
-        if: ${{ failure() }}
+        if: failure()
