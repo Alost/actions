@@ -8,17 +8,4 @@ jobs:
     runs-on: macos-15-intel
     steps:
       - uses: actions/checkout@v4
-      # - uses: fawazahmed0/action-debug-vscode@main # touch continue
-
-      - uses: dawidd6/action-send-mail@v11
-        with:
-          server_address: ${{ secrets.SMTP_SERVER_ADDRESS }}
-          server_port: ${{ secrets.SMTP_SERVER_PORT }}
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          from: ${{ secrets.SMTP_USERNAME }}
-          to: ${{ secrets.SMTP_TO }}
-          subject: Github Actions Build
-          body: |
-            ${{ job.status }}
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
