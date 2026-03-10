@@ -70,7 +70,6 @@ jobs:
           password: ${{ secrets.SMTP_PASSWORD }}
           from: ${{ secrets.SMTP_USERNAME }}
           to: ${{ secrets.SMTP_TO }}
-          content_type: text/plain
           subject: Github Actions ${{ github.event.client_payload.name }} Build Failed
           body: |
             ${{ job.status }}
