@@ -30,11 +30,11 @@ jobs:
           cache-all-crates: "true"
           cache-workspace-crates: "true"
 
-      - uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event.client_payload.build.debug }}
-        with:
-          detached: true
-          timeout-minutes: 5
+      # - uses: mxschmitt/action-tmate@v3
+      #   if: ${{ github.event.client_payload.build.debug }}
+      #   with:
+      #     detached: true
+      #     timeout-minutes: 5
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
         if: ${{ github.event.client_payload.build.debug }}
 
@@ -61,11 +61,11 @@ jobs:
           draft: false
           prerelease: false
 
-      - uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event.client_payload.build.end_debug }}
-        with:
-          detached: true
-          timeout-minutes: 5
+      # - uses: mxschmitt/action-tmate@v3
+      #   if: ${{ github.event.client_payload.build.end_debug }}
+      #   with:
+      #     detached: true
+      #     timeout-minutes: 5
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
         if: ${{ github.event.client_payload.build.end_debug }}
 
@@ -82,8 +82,8 @@ jobs:
           body: |
             ${{ job.status }}
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      - uses: mxschmitt/action-tmate@v3
-        if: failure()
-        timeout-minutes: 2
+      # - uses: mxschmitt/action-tmate@v3
+      #   if: failure()
+      #   timeout-minutes: 2
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
         if: failure()
