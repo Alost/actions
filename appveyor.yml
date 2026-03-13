@@ -1,0 +1,42 @@
+version: 1.0.{build}
+
+image: macos
+
+build: off
+test: off
+
+environment:
+  LANG: en_US.UTF-8
+  LC_ALL: en_US.UTF-8
+
+init:
+  - echo "=== AppVeyor basic info ==="
+  - appveyor version
+  - sw_vers
+  - uname -a
+
+for:
+  -
+    matrix:
+      only:
+        - image: macos
+    install:
+      - echo "=== Toolchain versions ==="
+      - xcodebuild -version
+      - swift --version || true
+      - clang --version || true
+      - ruby --version || true
+      - python3 --version || true
+      - node --version || true
+      - npm --version || true
+      - pod --version || true
+      - brew --version || true
+
+    build_script:
+      - echo "=== Environment variables ==="
+      - printenv | sort
+      - echo "=== Disk usage ==="
+      - df -h
+      - echo "=== Xcode apps ==="
+      - ls -1 /Applications | grep -i Xcode || true
+      - echo "=== Done ==="
