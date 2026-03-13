@@ -1,0 +1,39 @@
+# https://gitlab.cn/docs/jh/ci/runners/hosted_runners/macos
+# https://docs.gitlab.com/ci/runners/hosted_runners/macos
+
+# gitlab登不上，jihulab没资源
+
+.runner:
+  tags:
+    # - saas-macos-medium-m1 # 4C8G50G
+    # - saas-macos-large-m2pro # 6C16G50G
+    - saas-shared-runner-manager-3
+  image: macos-15-xcode-16
+  before_script:
+    - sw_vers
+    - uname -a
+    - sysctl -n machdep.cpu.brand_string
+    - system_profiler SPHardwareDataType
+    - df -h
+    - sysctl -n hw.ncpu
+    - sysctl -n hw.physicalcpu
+    - sysctl -n hw.logicalcpu
+    - sysctl -n hw.memsize
+    - printenv | sort
+    - ls -1 /Applications | grep -i Xcode || true
+
+variables:
+  LANG: "C.UTF-8"
+  LC_ALL: "C.UTF-8"
+  # GIT_STRATEGY: clone
+  HOMEBREW_NO_AUTO_UPDATE: 1
+
+build:
+  extends:
+    - .runner
+  stage: build
+  script:
+    - echo 123
+
+stages:
+  - build

@@ -3,6 +3,7 @@
 # https://circleci.com/docs/guides/execution-managed/executor-intro/
 # https://circleci.com/docs/guides/execution-managed/using-macos/#supported-xcode-versions
 
+# https://app.circleci.com/organization/github/Alost
 # 每月6000min
 # free不支持macos
 
