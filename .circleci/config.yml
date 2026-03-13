@@ -3,6 +3,9 @@
 # https://circleci.com/docs/guides/execution-managed/executor-intro/
 # https://circleci.com/docs/guides/execution-managed/using-macos/#supported-xcode-versions
 
+# 每月6000min
+# free不支持macos
+
 version: 2.1
 jobs:
   build:
