@@ -1,6 +1,6 @@
 version: 1.0.{build}
 
-# https://www.appveyor.com/docs/macos-images-software/#operating-system
+# https://ci.appveyor.com/projects
 # max 60min
 
 image: macos-sonoma # 2C6G120G
