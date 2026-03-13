@@ -5,6 +5,9 @@ version: 1.0.{build}
 # image: macos-sonoma # 2C6G120G
 image: macos-ventura # 2C6G120G
 
+matrix:
+  fast_finish: true
+
 environment:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
@@ -23,4 +26,4 @@ init:
   - printenv | sort
   - ls -1 /Applications | grep -i Xcode
 build_script:
-  - brew update
+  - echo 123
