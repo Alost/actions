@@ -1,35 +1,23 @@
 version: 1.0.{build}
 
-image: macos
+image: macos-sonoma
 
 environment:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
 
 init:
-  - echo "=== AppVeyor basic info ==="
   - appveyor version
   - sw_vers
   - uname -a
   - sysctl -n machdep.cpu.brand_string || true
+  - system_profiler SPHardwareDataType || true
+  - df -h
   - sysctl -n hw.ncpu || true
   - sysctl -n hw.physicalcpu || true
   - sysctl -n hw.logicalcpu || true
   - sysctl -n hw.memsize || true
-  - vm_stat || true
-  - df -h
   - diskutil info / || true
   - printenv | sort
-for:
-  -
-    matrix:
-      only:
-        - image: macos
-    build_script:
-      - echo "=== Environment variables ==="
-      - printenv | sort
-      - echo "=== Disk usage ==="
-      - df -h
-      - echo "=== Xcode apps ==="
-      - ls -1 /Applications | grep -i Xcode || true
-      - echo "=== Done ==="
+build_script:
+  - ls -1 /Applications | grep -i Xcode || true
