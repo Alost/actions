@@ -1,6 +1,9 @@
 version: 1.0.{build}
 
-image: macos-sonoma
+# https://www.appveyor.com/docs/macos-images-software/#operating-system
+
+# image: macos-sonoma # 2C6G120G
+image: macos-ventura # 2C6G120G
 
 environment:
   LANG: C.UTF-8
@@ -10,14 +13,14 @@ init:
   - appveyor version
   - sw_vers
   - uname -a
-  - sysctl -n machdep.cpu.brand_string || true
-  - system_profiler SPHardwareDataType || true
+  - sysctl -n machdep.cpu.brand_string
+  - system_profiler SPHardwareDataType
   - df -h
-  - sysctl -n hw.ncpu || true
-  - sysctl -n hw.physicalcpu || true
-  - sysctl -n hw.logicalcpu || true
-  - sysctl -n hw.memsize || true
-  - diskutil info / || true
+  - sysctl -n hw.ncpu
+  - sysctl -n hw.physicalcpu
+  - sysctl -n hw.logicalcpu
+  - sysctl -n hw.memsize
   - printenv | sort
+  - ls -1 /Applications | grep -i Xcode
 build_script:
-  - ls -1 /Applications | grep -i Xcode || true
+  - brew update
