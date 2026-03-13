@@ -1,16 +1,22 @@
 version: 1.0.{build}
 
 # https://www.appveyor.com/docs/macos-images-software/#operating-system
+# max 60min
 
 image: macos-sonoma # 2C6G120G
 # image: macos-ventura # 2C6G120G
 
+build: Script
 matrix:
   fast_finish: true
-
 environment:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
+  APPVEYOR_SAVE_CACHE_ON_ERRORtrue: true
+
+cache: # max 1G
+  - '%USERPROFILE%\.cargo
+  - target
 
 init:
   - appveyor version
