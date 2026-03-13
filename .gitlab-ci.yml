@@ -2,6 +2,7 @@
 # https://docs.gitlab.com/ci/runners/hosted_runners/macos
 
 # gitlab登不上，jihulab没资源
+# https://jihulab.com/ai-robot/actions
 
 .runner:
   tags:
