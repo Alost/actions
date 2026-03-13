@@ -1,0 +1,50 @@
+# https://circleci.com/docs/testing-ios/
+# https://circleci.com/docs/using-macos/
+# https://circleci.com/docs/guides/execution-managed/executor-intro/
+# https://circleci.com/docs/guides/execution-managed/using-macos/#supported-xcode-versions
+
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: 26.3.0
+    resource_class: m4pro.large
+    environment:
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-cargo-{{ arch }}-{{ checksum "Cargo.lock" }}
+            - v1-cargo-{{ arch }}-
+            - v1-cargo-
+      - run:
+          name: init
+          command: |
+            circleci-agent --version || true
+            sw_vers
+            uname -a
+            sysctl -n machdep.cpu.brand_string || true
+            system_profiler SPHardwareDataType || true
+            df -h
+            sysctl -n hw.ncpu
+            sysctl -n hw.physicalcpu
+            sysctl -n hw.logicalcpu
+            sysctl -n hw.memsize
+            printenv | sort
+            ls -1 /Applications | grep -i Xcode || true
+      - run:
+          name: build
+          command: echo 123
+      - save_cache:
+          key: v1-cargo-{{ arch }}-{{ checksum "Cargo.lock" }}
+          paths:
+            - ~/.cargo
+            - target
+          when: always
+
+workflows:
+  test:
+    jobs:
+      - build
