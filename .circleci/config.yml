@@ -3,7 +3,7 @@
 # https://circleci.com/docs/guides/execution-managed/executor-intro/
 # https://circleci.com/docs/guides/execution-managed/using-macos/#supported-xcode-versions
 
-version: 2
+version: 2.1
 jobs:
   build:
     macos:
