@@ -2,8 +2,8 @@ version: 1.0.{build}
 
 # https://www.appveyor.com/docs/macos-images-software/#operating-system
 
-# image: macos-sonoma # 2C6G120G
-image: macos-ventura # 2C6G120G
+image: macos-sonoma # 2C6G120G
+# image: macos-ventura # 2C6G120G
 
 matrix:
   fast_finish: true
@@ -27,3 +27,6 @@ init:
   - ls -1 /Applications | grep -i Xcode
 build_script:
   - echo 123
+on_success:
+on_failure:
+on_finish:
