@@ -26,4 +26,4 @@ jobs:
           printenv | sort
           ls -1 /Applications | grep -i Xcode
 
-      # - uses: fawazahmed0/action-debug-vscode@main # touch continue
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
