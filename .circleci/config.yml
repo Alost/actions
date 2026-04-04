@@ -11,8 +11,8 @@ jobs:
   build:
     macos:
       xcode: 26.3.0
-    resource_class: m4pro.medium # 6C28G74G
-    # resource_class: m4pro.large # 12C56G free不支持
+    # resource_class: m4pro.medium # 6C28G74G
+    resource_class: m4pro.large # 12C56G free不支持
     environment:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
