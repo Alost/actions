@@ -100,4 +100,4 @@ jobs:
       #   if: failure()
       #   timeout-minutes: 2
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
-        if: failure()
+        if: failure() && ${{ github.event.client_payload.build.fail_debug }}
