@@ -19,6 +19,20 @@ jobs:
           lfs: true
           fetch-depth: 1
 
+      - name: Run Info
+        shell: bash
+        run: |
+          uname -a || true
+          system_profiler SPHardwareDataType || true
+          sysctl machdep.cpu.brand_string || true
+          free -h || true
+          df -h || true
+          lscpu || true
+          sw_vers || true
+          wmic cpu get NumberOfCores,NumberOfLogicalProcessors || true
+          systeminfo || true
+          printenv | sort
+
       - uses: ./.github/actions/free_disk_space
         if: ${{ github.event.client_payload.build.free_disk_space }}
 

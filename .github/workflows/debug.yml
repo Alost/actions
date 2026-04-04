@@ -10,8 +10,8 @@ jobs:
   debug:
     # runs-on: macos-15-intel # x86_64 4C14G109G
     # runs-on: macos-26-intel # x86_64 4C14G151G
-    # runs-on: macos-latest # arm64 3C7G44G
-    runs-on: macos-15 # arm64 3C7G44G
+    runs-on: macos-latest # arm64 3C7G44G
+    # runs-on: macos-15 # arm64 3C7G44G
     steps:
       - uses: actions/checkout@v4
 
