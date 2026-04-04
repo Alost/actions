@@ -6,9 +6,8 @@
 
 .runner:
   tags:
-    # - saas-macos-medium-m1 # 4C8G50G
+    - saas-macos-medium-m1 # 4C8G50G
     # - saas-macos-large-m2pro # 6C16G50G
-    - saas-shared-runner-manager-3
   image: macos-15-xcode-16
   before_script:
     - sw_vers
