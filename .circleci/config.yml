@@ -3,30 +3,38 @@
 # https://circleci.com/docs/guides/execution-managed/executor-intro/
 # https://circleci.com/docs/guides/execution-managed/using-macos/#supported-xcode-versions
 
+# https://circleci.com/docs/reference/configuration-reference/
+# https://circleci.com/developer/orbs
+# https://circleci.com/docs/guides/optimize/caching/
+# https://circleci.com/docs/guides/orchestrate/workspaces/
+# https://circleci.com/pricing/price-list/
+
 # https://app.circleci.com/organization/github/Alost
-# 每月6000min
+# 每月6000min 3w积分 单次最长1h 2G存储
+# 缓存key只能写一次的
 
 version: 2.1
-jobs:
-  build:
+
+executors:
+  macos:
     macos:
       xcode: 16.4.0
-    resource_class: m4pro.medium # 6C28G74G
-    # resource_class: m4pro.large # 12C56G free不支持
+    resource_class: m4pro.medium # 6C28G74G 200积分/min 每月150min
+    # resource_class: m4pro.large # 12C56G 400积分/min free不支持
     environment:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
+      TZ: Asia/Shanghai
+
+jobs:
+  build:
+    executor: macos
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-cargo-{{ arch }}-{{ checksum "Cargo.lock" }}
-            - v1-cargo-{{ arch }}-
-            - v1-cargo-
       - run:
           name: init
           command: |
-            circleci-agent --version || true
+            circleci-agent version
             sw_vers
             uname -a
             sysctl -n machdep.cpu.brand_string || true
@@ -40,16 +48,7 @@ jobs:
             ls -1 /Applications | grep -i Xcode || true
       - run:
           name: build
-          command: echo 123 > test.txt
-      - store_artifacts:
-          path: test.txt
-          destination: test.txt
-      - save_cache:
-          key: v1-cargo-{{ arch }}-{{ checksum "Cargo.lock" }}
-          paths:
-            - ~/.cargo
-            - target
-          when: always
+          command: echo 123
 
 workflows:
   test:
