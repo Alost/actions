@@ -10,9 +10,9 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: 26.3.0
-    # resource_class: m4pro.medium # 6C28G74G
-    resource_class: m4pro.large # 12C56G free不支持
+      xcode: 16.4.0
+    resource_class: m4pro.medium # 6C28G74G
+    # resource_class: m4pro.large # 12C56G free不支持
     environment:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
@@ -40,7 +40,10 @@ jobs:
             ls -1 /Applications | grep -i Xcode || true
       - run:
           name: build
-          command: echo 123
+          command: echo 123 > test.txt
+      - store_artifacts:
+          path: test.txt
+          destination: test.txt
       - save_cache:
           key: v1-cargo-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
