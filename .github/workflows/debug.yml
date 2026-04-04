@@ -1,3 +1,6 @@
+# https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+# https://github.com/marketplace?type=actions
+
 name: Debug
 on:
   # push:
@@ -6,7 +9,19 @@ on:
 jobs:
   debug:
     # runs-on: macos-15-intel # 4C14G
-    runs-on: macos-15-large
+    runs-on: macos-26-intel
     steps:
       - uses: actions/checkout@v4
+
+      - name: Run Info
+        shell: bash
+        run: |
+          sw_vers
+          uname -a
+          sysctl machdep.cpu.brand_string
+          system_profiler SPHardwareDataType
+          df -h
+          printenv | sort
+          ls -1 /Applications | grep -i Xcode
+
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
