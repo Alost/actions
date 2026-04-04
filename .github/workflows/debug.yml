@@ -5,7 +5,8 @@ on:
 
 jobs:
   debug:
-    runs-on: macos-15-intel
+    # runs-on: macos-15-intel # 4C14G
+    runs-on: macos-15-large
     steps:
       - uses: actions/checkout@v4
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
