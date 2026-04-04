@@ -8,8 +8,8 @@ on:
 
 jobs:
   debug:
-    # runs-on: macos-15-intel # 4C14G
-    runs-on: macos-26-intel
+    runs-on: macos-15-intel # 4C14G
+    # runs-on: macos-26-intel # 4C14G151G
     steps:
       - uses: actions/checkout@v4
 
@@ -24,4 +24,4 @@ jobs:
           printenv | sort
           ls -1 /Applications | grep -i Xcode
 
-      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+      # - uses: fawazahmed0/action-debug-vscode@main # touch continue
