@@ -64,8 +64,19 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 # systemctl reload sshd
 echo "$SSH_KEY" > ~/.ssh/key
 chmod 600 ~/.ssh/key
-ssh -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+# ssh -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+#     -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+#     -o IdentitiesOnly=yes -i ~/.ssh/key \
+#     -R :15900:localhost:5900 \
+#     -N -f \
+#     root@$SSH_IP -p $SSH_PORT
+brew install autossh
+export AUTOSSH_GATETIME=0
+autossh -M $MONITOR_PORT \
+    -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
     -o IdentitiesOnly=yes -i ~/.ssh/key \
     -R :15900:localhost:5900 \
-    -N -f \
-    root@$SSH_IP -p $SSH_PORT
+    -N \
+    root@$SSH_IP -p $SSH_PORT &
+# lsof -i:15900
