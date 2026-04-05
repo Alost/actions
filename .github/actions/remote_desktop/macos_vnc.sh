@@ -72,7 +72,7 @@ chmod 600 ~/.ssh/key
 #     root@$SSH_IP -p $SSH_PORT
 brew install autossh
 export AUTOSSH_GATETIME=0
-autossh -M $MONITOR_PORT \
+autossh -M 12345 \
     -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
     -o IdentitiesOnly=yes -i ~/.ssh/key \
