@@ -45,7 +45,6 @@ if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
     if [ -n "$url" ]; then
         echo -e "\033[31m$url\033[0m"
     fi
-    # tcp://0.tcp.ap.ngrok.io:13812
 fi
 
 # cloudflared
