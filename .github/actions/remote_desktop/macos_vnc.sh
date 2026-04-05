@@ -29,6 +29,7 @@ cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
 sleep 15
 cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
 
-# cloudflared access tcp --hostname https://alpine-christ-myers-typing.trycloudflare.com --url localhost:5900
+# https://github.com/UnQOfficial/remote-desktop-workflows
+# cloudflared access tcp --hostname https://msie-temple-tones-webshots.trycloudflare.com --url localhost:5900
 # localhost:5900
 # vncuser P@ssw0rd123!
