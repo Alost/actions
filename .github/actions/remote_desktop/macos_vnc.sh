@@ -41,8 +41,10 @@ if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
     ngrok authtoken $NGROK_AUTHTOKEN
     ngrok tcp 5900 &
     sleep 3
-    curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
-
+    url=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+    if [ -n "$url" ]; then
+        echo -e "\033[31m$url\033[0m"
+    fi
     # tcp://0.tcp.ap.ngrok.io:13812
 fi
 
