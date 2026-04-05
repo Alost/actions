@@ -11,8 +11,8 @@ jobs:
     # 实际上arm机比intel机性能更高更稳定
     # runs-on: macos-15-intel # Macmini6,2 i7-8700B x86_64 4C14G109G
     # runs-on: macos-26-intel # Macmini6,2 i7-8700B x86_64 4C14G151G
-    runs-on: macos-latest # VirtualMac2,1 M1 arm64 3C7G44G
-    # runs-on: macos-15 # VirtualMac2,1 M1 arm64 3C7G44G
+    # runs-on: macos-latest # VirtualMac2,1 M1 arm64 3C7G44G
+    runs-on: macos-15 # VirtualMac2,1 M1 arm64 3C7G44G
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/print_runner_info
