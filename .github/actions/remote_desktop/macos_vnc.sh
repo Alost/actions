@@ -42,7 +42,7 @@ NGROK_AUTH_TOKEN=1PPhv9GYhJ1odvj2Z3G2boBNOsQ_28K33M2wVmQpC9y5ZLRsT
 brew install ngrok
 ngrok authtoken $NGROK_AUTH_TOKEN
 ngrok tcp 5900 &
-curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+# curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
 
 # cloudflared
 # brew install cloudflare/cloudflare/cloudflared
@@ -53,3 +53,4 @@ curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
 # cloudflared access tcp --hostname https://list-manitoba-curtis-perl.trycloudflare.com --url localhost:5900
 # localhost:5900
 # vncuser P@ssw0rd123!
+# 网络不好
