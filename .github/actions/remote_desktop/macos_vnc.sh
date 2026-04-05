@@ -40,16 +40,17 @@ if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
     brew install ngrok
     ngrok authtoken $NGROK_AUTHTOKEN
     ngrok tcp 5900 --region=ap &
-    # curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+    curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+
+    # tcp://0.tcp.ap.ngrok.io:13812
 fi
 
 # cloudflared
-# brew install cloudflare/cloudflare/cloudflared
-# cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
-# sleep 15
-# cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
+brew install cloudflare/cloudflare/cloudflared
+cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
+sleep 15
+cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
 
 # cloudflared access tcp --hostname https://list-manitoba-curtis-perl.trycloudflare.com --url localhost:5900
 # localhost:5900
 # vncuser P@ssw0rd123!
-# 网络不好
