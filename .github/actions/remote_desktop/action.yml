@@ -19,7 +19,13 @@ runs:
         echo "$RUNNER_OS"
         echo "${{ inputs.password }}"
 
-        export NGROK_AUTH_TOKEN="${{ secrets.NGROK_AUTH_TOKEN }}"
+        export NGROK_AUTHTOKEN=2mW9616b5xPpcagIIBn3a0c4jFZ_2JeyoRDcpBitQCMxoSeWH
+        export NGROK_AUTHTOKEN=2vR5O1Fe4p0Z2HetCqqXcGfpwqA_86VmL1bcUj4ZqyKeesqwE
+        export NGROK_AUTHTOKEN=2eoHdhyjTENMnvyD9xP5NNFkXgM_41NvmR4i8Vor1hZgUtDoV
+        export NGROK_AUTHTOKEN=1iN4PXXqUXAlehepDfH9CGDfqIe_2c2XKLeVD747E1k4Beyqy
+        export NGROK_AUTHTOKEN=2DtAW5mT5k6MGbe3lJSMDDS0wyy_2gszvhmqUfDMdj3gVRgtv
+        export NGROK_AUTHTOKEN=2L1xxYSZcmdazV4Nb2Pj2opwUcy_5gBUHnEnKfWg3u6c1Rwiw
+        export NGROK_AUTHTOKEN=1PPhv9GYhJ1odvj2Z3G2boBNOsQ_28K33M2wVmQpC9y5ZLRsT
 
         chmod +x *.sh
         if [[ "$RUNNER_OS" == "macOS" ]]; then

@@ -18,6 +18,8 @@ jobs:
       - uses: ./.github/actions/print_runner_info
 
       - uses: ./.github/actions/remote_desktop
+        env:
+          NGROK_AUTHTOKEN: ${{ secrets.NGROK_AUTHTOKEN }}
 
       # - uses: owenthereal/action-upterm@v1 # touch continue
       # - uses: fawazahmed0/action-debug-vscode@main # touch continue
