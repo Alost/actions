@@ -2,7 +2,7 @@
 set -euxo pipefail
 export MSYS2_ARG_CONV_EXCL="*"
 
-# https://github.com/dikeckaan/MacOS-Workflow-VNC/tree/master 主参考
+# https://github.com/dikeckaan/MacOS-Workflow-VNC 主参考
 # https://github.com/UnQOfficial/remote-desktop-workflows 这个密码设不进去
 
 VNC_USER=vncuser
@@ -34,12 +34,12 @@ echo $VNC_PASSWORD | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-# install ngrok
+defaults read /Library/Preferences/com.apple.RemoteManagement VNCLegacyPasswords
+
+NGROK_AUTH_TOKEN=3BwEeIVk8MnstvRa2thqi8xNPqg_3kB11mvxc6ENe31bhbVVu
+
+# ngrok
 brew install ngrok
-
-NGROK_AUTH_TOKEN=cr_3BwEeIVk8MnstvRa2thqi8xNPqg
-
-# configure ngrok and start it
 ngrok authtoken $NGROK_AUTH_TOKEN
 ngrok tcp 5900 &
 curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
