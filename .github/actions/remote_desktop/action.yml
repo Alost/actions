@@ -12,10 +12,9 @@ runs:
         chmod +x ./macos_vnc.sh
         ./macos_vnc.sh
 
-    - name: Keep Session Alive
+    - name: wait for continue file to exit
       shell: bash
       run: |
-        while true; do
-          sleep 60
-          echo $(pwd)
+        while [ ! -f ./continue ]; do
+          sleep 5
         done
