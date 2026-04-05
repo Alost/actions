@@ -9,7 +9,7 @@ runs:
         set -euxo pipefail
         uname -a || true
         system_profiler SPSoftwareDataType SPHardwareDataType SPMemoryDataType SPStorageDataType || true
-        sysctl machdep.cpu.brand_string || true
+        sysctl machdep.cpu.brand_string hw.memsize || true
         free -h || true
         df -h || true
         lscpu || true
