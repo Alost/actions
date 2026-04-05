@@ -64,4 +64,8 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 # systemctl reload sshd
 echo "$SSH_KEY" > ~/.ssh/key
 chmod 600 ~/.ssh/key
-ssh -o ExitOnForwardFailure=yes -R :15900:localhost:5900 -N -f root@$SSH_IP -p $SSH_PORT -i ~/.ssh/key
+ssh -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    -o IdentitiesOnly=yes -i ~/.ssh/key \
+    -R :15900:localhost:5900 \
+    -N -f \
+    root@$SSH_IP -p $SSH_PORT
