@@ -13,7 +13,7 @@ VNC_PASSWORD=${1:-P@ssw0rd123!}
 sudo defaults write ~/.Spotlight-V100/VolumeConfiguration.plist Exclusions -array "/Volumes" || true
 sudo defaults write ~/.Spotlight-V100/VolumeConfiguration.plist Exclusions -array "/Network" || true
 sudo killall mds || true
-sleep 60
+sleep 3
 sudo mdutil -a -i off / || true
 sudo mdutil -a -i off || true
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist || true
@@ -121,6 +121,12 @@ echo $VNC_PASSWORD | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA
 # Start VNC/reset changes
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
+
+name="Mac-$( [ "$(uname -m)" = "arm64" ] && echo M1 || echo Intel )-macOS-$(sw_vers -productVersion | cut -d. -f1)"
+sudo scutil --set HostName $name
+sudo scutil --set LocalHostName $name
+sudo scutil --set ComputerName $name
+sudo dscacheutil -flushcache
 
 # ngrok
 # https://dashboard.ngrok.com/get-started/your-authtoken
