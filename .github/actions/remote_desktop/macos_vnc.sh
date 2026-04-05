@@ -2,21 +2,26 @@
 set -euxo pipefail
 export MSYS2_ARG_CONV_EXCL="*"
 
+# https://github.com/dikeckaan/MacOS-Workflow-VNC/tree/master 主参考
+# https://github.com/UnQOfficial/remote-desktop-workflows 这个密码设不进去
+
+VNC_USER=vncuser
 VNC_PASSWORD=${1:-P@ssw0rd123!}
 
 # disable spotlight indexing
 sudo mdutil -i off -a
 
 # Create new account
-sudo dscl . -create /Users/vncuser
-sudo dscl . -create /Users/vncuser UserShell /bin/bash
-sudo dscl . -create /Users/vncuser RealName "VNC User"
-sudo dscl . -create /Users/vncuser UniqueID 1001
-sudo dscl . -create /Users/vncuser PrimaryGroupID 80
-sudo dscl . -create /Users/vncuser NFSHomeDirectory /Users/vncuser
-sudo dscl . -passwd /Users/vncuser $VNC_PASSWORD
-sudo dscl . -passwd /Users/vncuser $VNC_PASSWORD
-sudo createhomedir -c -u vncuser > /dev/null
+sudo dscl . -create /Users/$VNC_USER
+sudo dscl . -create /Users/$VNC_USER UserShell /bin/bash
+sudo dscl . -create /Users/$VNC_USER RealName $VNC_USER
+sudo dscl . -create /Users/$VNC_USER UniqueID 1001
+sudo dscl . -create /Users/$VNC_USER PrimaryGroupID 80
+sudo dscl . -create /Users/$VNC_USER NFSHomeDirectory /Users/$VNC_USER
+sudo dscl . -passwd /Users/$VNC_USER $VNC_PASSWORD
+sudo dscl . -passwd /Users/$VNC_USER $VNC_PASSWORD
+sudo createhomedir -c -u $VNC_USER > /dev/null
+sudo dscl . -append /Groups/admin GroupMembership $VNC_USER
 
 # Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
@@ -37,8 +42,13 @@ brew install ngrok
 # ngrok tcp 5900 &
 # curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
 
+# ngrok cr_3BwEeIVk8MnstvRa2thqi8xNPqg
+
 # cloudflared
 brew install cloudflare/cloudflare/cloudflared
 cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
 sleep 15
 cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
+# cloudflared access tcp --hostname https://list-manitoba-curtis-perl.trycloudflare.com --url localhost:5900
+# localhost:5900
+# vncuser P@ssw0rd123!

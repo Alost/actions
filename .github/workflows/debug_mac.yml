@@ -19,6 +19,6 @@ jobs:
 
       - uses: ./.github/actions/remote_desktop
 
-      - uses: owenthereal/action-upterm@v1 # touch continue
+      # - uses: owenthereal/action-upterm@v1 # touch continue
       - uses: mxschmitt/action-tmate@v3 # touch continue
       # - uses: fawazahmed0/action-debug-vscode@main # touch continue
