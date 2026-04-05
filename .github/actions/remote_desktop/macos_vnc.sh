@@ -39,7 +39,8 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
     brew install ngrok
     ngrok authtoken $NGROK_AUTHTOKEN
-    ngrok tcp 5900 --region=ap &
+    ngrok tcp 5900 &
+    sleep 3
     curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
 
     # tcp://0.tcp.ap.ngrok.io:13812
