@@ -7,16 +7,15 @@ runs:
       shell: bash
       run: |
         set -euxo pipefail
-        echo $(pwd)
-        echo ${{ github.action_path }}
         cd ${{ github.action_path }}
+
         chmod +x ./macos_vnc.sh
         ./macos_vnc.sh
+
     - name: Keep Session Alive
       shell: bash
       run: |
-        echo "⏳ Session Active - Keeping alive..."
         while true; do
           sleep 60
-          echo "✓ Active - $(date '+%H:%M:%S')"
+          echo $(pwd)
         done

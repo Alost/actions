@@ -13,7 +13,6 @@ sudo mkdir -p /Library/Preferences
 echo "$PASSWORD" | sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart \
     -activate -configure -access -on -restart -agent -privs -all \
     -clientopts -setvnclegacy -vnclegacy yes -setvncpw -vncpw "$PASSWORD"
-defaults read /Library/Preferences/com.apple.RemoteManagement VNCLegacyPasswords
 
 sudo /usr/libexec/PlistBuddy -c "Add :VNCLegacyPasswords array" /Library/Preferences/com.apple.RemoteManagement.plist 2>/dev/null || true
 sudo /usr/libexec/PlistBuddy -c "Delete :VNCLegacyPasswords:0" /Library/Preferences/com.apple.RemoteManagement.plist 2>/dev/null || true
