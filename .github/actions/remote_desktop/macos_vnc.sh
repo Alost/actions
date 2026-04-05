@@ -22,8 +22,6 @@ sudo rm -rf ~/Library/Metadata/CoreSpotlight/ || true
 killall -KILL Spotlight spotlightd mds || true
 sudo rm -rf /System/Volums/Data/.Spotlight-V100 || true
 
-sudo touch /var/db/.AppleSetupDone
-
 # Create new account
 sudo dscl . -create /Users/$VNC_USER
 sudo dscl . -create /Users/$VNC_USER UserShell /bin/bash
@@ -41,52 +39,30 @@ sudo python3 -c "
 import sqlite3
 import time
 import os
-
 db_path = '/Library/Application Support/com.apple.TCC/TCC.db'
 if not os.path.exists(db_path):
     print(f'❌ Error: DB not found at {db_path}')
     exit(1)
-
 try:
-    con = sqlite3.connect(db_path)
-    cur = con.cursor()
-
-    # 定義我們要授權的服務
-    # 1. kTCCServiceScreenCapture: 允許看畫面
-    # 2. kTCCServicePostEvent: 允許控制滑鼠鍵盤
-    # 3. kTCCServiceAccessibility: 輔助使用權限 (有時候需要)
     services = [
         'kTCCServiceScreenCapture',
         'kTCCServicePostEvent',
         'kTCCServiceAccessibility'
     ]
-
-    # 目標程式：macOS 內建螢幕分享代理程式
+    con = sqlite3.connect(db_path)
+    cur = con.cursor()
     client = 'com.apple.screensharing.agent'
-
-    # 獲取當前時間戳
     now = int(time.time())
-
-    # 針對每個服務進行注入
     for service in services:
-        print(f'💉 Injecting {service} for {client}...')
-
-        # 這是 macOS 12+ (含 Sequoia) 常見的 TCC 表結構插入
-        # 使用 INSERT OR REPLACE 覆蓋舊設定
-        # auth_value=2 代表 'Allowed'
         cur.execute('''
             INSERT OR REPLACE INTO access
             (service, client, client_type, auth_value, auth_reason, auth_version, csreq, policy_id, indirect_object_identifier_type, indirect_object_identifier, flags, last_modified)
             VALUES (?, ?, 0, 2, 4, 1, NULL, NULL, 0, 'UNUSED', 0, ?)
         ''', (service, client, now))
-
     con.commit()
-    print('TCC Permissions injected successfully.')
     con.close()
-
 except Exception as e:
     print(f'❌ TCC Injection Failed: {e}')
-    # 如果是因為欄位數量不對 (macOS 版本差異)，這裡會報錯，但通常 macOS 15 結構如上
     exit(1)
 "
 sudo defaults write /Library/Preferences/com.apple.universalaccess reduceTransparency -bool true
@@ -174,3 +150,7 @@ autossh -M 12345 \
     -N \
     root@$SSH_IP -p $SSH_PORT &
 # lsof -i:15900
+
+# 用 RemoteDesktopManager 选ARD类型，非常顺滑
+# https://cdn.devolutions.net/download/Setup.RemoteDesktopManager.win-x64.2026.1.16.0.msi
+# 画面质量选高 内部的复制粘贴是 Win+C/V
