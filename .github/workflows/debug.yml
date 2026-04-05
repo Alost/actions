@@ -13,11 +13,12 @@ jobs:
     runs-on: macos-latest # arm64 3C7G44G
     # runs-on: macos-15 # arm64 3C7G44G
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run Info
         shell: bash
         run: |
+          set -euxo pipefail
           uname -a || true
           system_profiler SPHardwareDataType || true
           sysctl machdep.cpu.brand_string || true

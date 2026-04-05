@@ -11,7 +11,7 @@ jobs:
       ACTIONS_RUNNER_DEBUG: true
       ACTIONS_STEP_DEBUG: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           repository: ${{ github.event.client_payload.repo.name }}
           ref: ${{ github.event.client_payload.repo.sha }}
@@ -22,6 +22,7 @@ jobs:
       - name: Run Info
         shell: bash
         run: |
+          set -euxo pipefail
           uname -a || true
           system_profiler SPHardwareDataType || true
           sysctl machdep.cpu.brand_string || true
