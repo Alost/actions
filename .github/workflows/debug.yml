@@ -25,7 +25,14 @@ jobs:
           df -h || true
           lscpu || true
           sw_vers || true
+          sysctl hw.physicalcpu hw.logicalcpu || true
           wmic cpu get NumberOfCores,NumberOfLogicalProcessors || true
+          uptime || true
+          sysctl -n vm.loadavg || true
+          top -l 1 | head -10 || true
+          memory_pressure || true
+          vm_stat || true
+          ps -eo %cpu,comm | sort -nr | head -10 || true
           systeminfo || true
           printenv | sort
 
