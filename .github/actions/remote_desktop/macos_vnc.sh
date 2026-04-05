@@ -3,7 +3,7 @@ set -euxo pipefail
 export MSYS2_ARG_CONV_EXCL="*"
 
 # https://github.com/dikeckaan/MacOS-Workflow-VNC 主参考
-# https://github.com/UnQOfficial/remote-desktop-workflows 这个密码设不进去
+# https://github.com/UnQOfficial/remote-desktop-workflows 这个密码不对，要小写?
 
 VNC_USER=vncuser
 VNC_PASSWORD=${1:-P@ssw0rd123!}
@@ -36,23 +36,32 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 
 # ngrok
 # https://dashboard.ngrok.com/get-started/your-authtoken
-if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
-    brew install ngrok
-    ngrok authtoken $NGROK_AUTHTOKEN
-    ngrok tcp 5900 &
-    sleep 3
-    url=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-    if [ -n "$url" ]; then
-        echo -e "\033[31m$url\033[0m"
-    fi
-fi
+# if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
+#     brew install ngrok
+#     ngrok authtoken $NGROK_AUTHTOKEN
+#     ngrok tcp 5900 &
+#     sleep 3
+#     url=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+#     if [ -n "$url" ]; then
+#         echo -e "\033[31m$url\033[0m"
+#     fi
+# fi
 
 # cloudflared
-brew install cloudflare/cloudflare/cloudflared
-cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
-sleep 15
-cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
+# brew install cloudflare/cloudflare/cloudflared
+# cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
+# sleep 15
+# cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
 
 # cloudflared access tcp --hostname https://list-manitoba-curtis-perl.trycloudflare.com --url localhost:5900
 # localhost:5900
 # vncuser P@ssw0rd123!
+
+# ssh
+# nano /etc/ssh/sshd_config.d/my.conf
+# GatewayPorts yes
+# AllowTcpForwarding yes
+# systemctl reload sshd
+echo "$SSH_KEY" > ~/.ssh/key
+chmod 600 ~/.ssh/key
+ssh -o ExitOnForwardFailure=yes -R :15900:localhost:5900 -N -f root@$SSH_IP -p $SSH_PORT -i ~/.ssh/key
