@@ -1,5 +1,12 @@
 name: "Remote Desktop"
 description: "remote desktop"
+
+inputs:
+  password:
+    description: "password"
+    required: false
+    default: "P@ssw0rd123!"
+
 runs:
   using: "composite"
   steps:
@@ -7,10 +14,15 @@ runs:
       shell: bash
       run: |
         set -euxo pipefail
-        cd ${{ github.action_path }}
+        cd "${{ github.action_path }}"
 
-        chmod +x ./macos_vnc.sh
-        ./macos_vnc.sh
+        echo "$RUNNER_OS"
+        echo "${{ inputs.password }}"
+
+        chmod +x *.sh
+        if [[ "$RUNNER_OS" == "macOS" ]]; then
+          ./macos_vnc.sh ${{ inputs.password }}
+        fi
 
     - name: wait for continue file to exit
       shell: bash
