@@ -18,12 +18,15 @@ jobs:
       - name: Run Info
         shell: bash
         run: |
-          sw_vers
-          uname -a
-          sysctl machdep.cpu.brand_string
-          system_profiler SPHardwareDataType
-          df -h
+          uname -a || true
+          system_profiler SPHardwareDataType || true
+          sysctl machdep.cpu.brand_string || true
+          free -h || true
+          df -h || true
+          lscpu || true
+          sw_vers || true
+          wmic cpu get NumberOfCores,NumberOfLogicalProcessors || true
+          systeminfo || true
           printenv | sort
-          ls -1 /Applications | grep -i Xcode
 
       - uses: fawazahmed0/action-debug-vscode@main # touch continue
