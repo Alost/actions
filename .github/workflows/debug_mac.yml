@@ -15,7 +15,6 @@ jobs:
     # runs-on: macos-15 # VirtualMac2,1 M1 arm64 3C7G44G
     steps:
       - uses: actions/checkout@v6
-
       - uses: ./.github/actions/print_runner_info
 
       # - uses: fawazahmed0/action-debug-vscode@main # touch continue

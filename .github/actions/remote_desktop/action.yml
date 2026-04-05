@@ -1,0 +1,19 @@
+name: "Remote Desktop"
+description: "remote desktop"
+runs:
+  using: "composite"
+  steps:
+    - name: Remote Desktop
+      shell: bash
+      run: |
+        set -euxo pipefail
+        chmod +x ./macos_vnc.sh
+        ./macos_vnc.sh
+    - name: Keep Session Alive
+      shell: bash
+      run: |
+        echo "⏳ Session Active - Keeping alive..."
+        while true; do
+          sleep 60
+          echo "✓ Active - $(date '+%H:%M:%S')"
+        done
