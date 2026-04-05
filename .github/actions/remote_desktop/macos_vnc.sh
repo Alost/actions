@@ -37,18 +37,19 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 # install ngrok
 brew install ngrok
 
-# configure ngrok and start it
-# ngrok authtoken $NGROK_AUTH_TOKEN
-# ngrok tcp 5900 &
-# curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+NGROK_AUTH_TOKEN=cr_3BwEeIVk8MnstvRa2thqi8xNPqg
 
-# ngrok cr_3BwEeIVk8MnstvRa2thqi8xNPqg
+# configure ngrok and start it
+ngrok authtoken $NGROK_AUTH_TOKEN
+ngrok tcp 5900 &
+curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
 
 # cloudflared
-brew install cloudflare/cloudflare/cloudflared
-cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
-sleep 15
-cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
+# brew install cloudflare/cloudflare/cloudflared
+# cloudflared tunnel --url tcp://localhost:5900 > tunnel.log 2>&1 &
+# sleep 15
+# cat tunnel.log | grep -o 'https://[^[:space:]]*trycloudflare.com' || echo "Check logs for tunnel URL"
+
 # cloudflared access tcp --hostname https://list-manitoba-curtis-perl.trycloudflare.com --url localhost:5900
 # localhost:5900
 # vncuser P@ssw0rd123!
