@@ -34,11 +34,11 @@ echo $VNC_PASSWORD | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-defaults read /Library/Preferences/com.apple.RemoteManagement VNCLegacyPasswords
-
 NGROK_AUTH_TOKEN=3BwEeIVk8MnstvRa2thqi8xNPqg_3kB11mvxc6ENe31bhbVVu
+NGROK_AUTH_TOKEN=1PPhv9GYhJ1odvj2Z3G2boBNOsQ_28K33M2wVmQpC9y5ZLRsT
 
 # ngrok
+# https://dashboard.ngrok.com/get-started/your-authtoken
 brew install ngrok
 ngrok authtoken $NGROK_AUTH_TOKEN
 ngrok tcp 5900 &
