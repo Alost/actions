@@ -161,7 +161,6 @@ sudo dscacheutil -flushcache
 echo "$SSH_KEY" > ~/.ssh/key
 chmod 600 ~/.ssh/key
 # ssh -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-#     -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
 #     -o IdentitiesOnly=yes -i ~/.ssh/key \
 #     -R :15900:localhost:5900 \
 #     -N -f \
@@ -170,7 +169,6 @@ brew install autossh
 export AUTOSSH_GATETIME=0
 autossh -M 12345 \
     -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-    -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
     -o IdentitiesOnly=yes -i ~/.ssh/key \
     -R :15900:localhost:5900 \
     -N \
