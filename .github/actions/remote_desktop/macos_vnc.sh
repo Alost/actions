@@ -22,6 +22,8 @@ sudo rm -rf ~/Library/Metadata/CoreSpotlight/ || true
 killall -KILL Spotlight spotlightd mds || true
 sudo rm -rf /System/Volums/Data/.Spotlight-V100 || true
 
+sudo touch /var/db/.AppleSetupDone
+
 # Create new account
 sudo dscl . -create /Users/$VNC_USER
 sudo dscl . -create /Users/$VNC_USER UserShell /bin/bash
