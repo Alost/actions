@@ -24,5 +24,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
 
-      # - uses: owenthereal/action-upterm@v1 # touch continue
       # - uses: fawazahmed0/action-debug-vscode@main # touch continue
+
+      - uses: owenthereal/action-upterm@v1 # touch continue
+        if: failure()
