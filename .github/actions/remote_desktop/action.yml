@@ -23,10 +23,3 @@ runs:
         if [[ "$RUNNER_OS" == "macOS" ]]; then
           ./macos_vnc.sh ${{ inputs.password }}
         fi
-
-    - name: wait for continue file to exit
-      shell: bash
-      run: |
-        while [ ! -f ./continue ]; do
-          sleep 5
-        done
