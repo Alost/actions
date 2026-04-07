@@ -141,11 +141,11 @@ defaults write com.apple.universalaccessAuthWarning com.apple.Terminal -bool tru
 # 禁用屏幕锁定
 defaults write com.apple.loginwindow DisableScreenLock -bool true
 # 关闭密码输入
-for PAM_FILE in /etc/pam.d/*; do
-    sudo sed -i -e s/required/optional/g "${PAM_FILE}"
-    sudo sed -i -e s/sufficient/optional/g "${PAM_FILE}"
-done
-sudo killall Finder || true sudo killall Dock || true sudo killall mds
+# for PAM_FILE in /etc/pam.d/*; do
+#     sudo sed -i -e s/required/optional/g "${PAM_FILE}"
+#     sudo sed -i -e s/sufficient/optional/g "${PAM_FILE}"
+# done
+# sudo killall Finder || true sudo killall Dock || true sudo killall mds
 # 禁用应用进入睡眠状态
 sudo defaults write NSGlobalDomain NSAppSleepDisabled -bool YES
 
