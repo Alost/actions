@@ -147,7 +147,7 @@ defaults write com.apple.loginwindow DisableScreenLock -bool true
 # done
 # sudo killall Finder || true sudo killall Dock || true sudo killall mds
 # 禁用应用进入睡眠状态
-sudo defaults write NSGlobalDomain NSAppSleepDisabled -bool YES
+# sudo defaults write NSGlobalDomain NSAppSleepDisabled -bool YES
 
 # ngrok
 # https://dashboard.ngrok.com/get-started/your-authtoken
