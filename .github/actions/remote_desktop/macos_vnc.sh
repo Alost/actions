@@ -107,39 +107,39 @@ sudo scutil --set ComputerName $name
 sudo dscacheutil -flushcache
 
 # https://github.com/sickcodes/osx-optimizer
-# 跳过GUI登录界面
-defaults write com.apple.loginwindow autoLoginUser -bool true
-# 禁用聚光灯索引
-sudo mdutil -i off -a
-# 启用性能模式
-sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
-# 禁用重重登录界面壁纸
-sudo defaults write /Library/Preferences/com.apple.loginwindow DesktopPicture ""
-# 减少运动与透明度
-defaults write com.apple.Accessibility DifferentiateWithoutColor -int 1
-defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
-defaults write com.apple.universalaccess reduceMotion -int 1
-defaults write com.apple.universalaccess reduceTransparency -int 1
-# 启用多会话
-sudo defaults write .GlobalPreferences MultipleSessionsEnabled -bool TRUE
-defaults write "Apple Global Domain" MultipleSessionsEnabled -bool true
-# 关闭更新
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool false
-sudo defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
-sudo defaults write com.apple.commerce AutoUpdate -bool false
-sudo defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
-sudo defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 0
-sudo defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 0
-sudo defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 0
-sudo defaults write com.apple.SoftwareUpdate AutomaticDownload -int 0
-# 启用osascript
-defaults write com.apple.universalaccessAuthWarning /System/Applications/Utilities/Terminal.app -bool true
-defaults write com.apple.universalaccessAuthWarning /usr/libexec -bool true
-defaults write com.apple.universalaccessAuthWarning /usr/libexec/sshd-keygen-wrapper -bool true
-defaults write com.apple.universalaccessAuthWarning com.apple.Messages -bool true
-defaults write com.apple.universalaccessAuthWarning com.apple.Terminal -bool true
-# 禁用屏幕锁定
-defaults write com.apple.loginwindow DisableScreenLock -bool true
+# # 跳过GUI登录界面
+# defaults write com.apple.loginwindow autoLoginUser -bool true
+# # 禁用聚光灯索引
+# sudo mdutil -i off -a
+# # 启用性能模式
+# sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
+# # 禁用重重登录界面壁纸
+# sudo defaults write /Library/Preferences/com.apple.loginwindow DesktopPicture ""
+# # 减少运动与透明度
+# defaults write com.apple.Accessibility DifferentiateWithoutColor -int 1
+# defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
+# defaults write com.apple.universalaccess reduceMotion -int 1
+# defaults write com.apple.universalaccess reduceTransparency -int 1
+# # 启用多会话
+# sudo defaults write .GlobalPreferences MultipleSessionsEnabled -bool TRUE
+# defaults write "Apple Global Domain" MultipleSessionsEnabled -bool true
+# # 关闭更新
+# sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool false
+# sudo defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
+# sudo defaults write com.apple.commerce AutoUpdate -bool false
+# sudo defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
+# sudo defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 0
+# sudo defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 0
+# sudo defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 0
+# sudo defaults write com.apple.SoftwareUpdate AutomaticDownload -int 0
+# # 启用osascript
+# defaults write com.apple.universalaccessAuthWarning /System/Applications/Utilities/Terminal.app -bool true
+# defaults write com.apple.universalaccessAuthWarning /usr/libexec -bool true
+# defaults write com.apple.universalaccessAuthWarning /usr/libexec/sshd-keygen-wrapper -bool true
+# defaults write com.apple.universalaccessAuthWarning com.apple.Messages -bool true
+# defaults write com.apple.universalaccessAuthWarning com.apple.Terminal -bool true
+# # 禁用屏幕锁定
+# defaults write com.apple.loginwindow DisableScreenLock -bool true
 # 关闭密码输入
 # for PAM_FILE in /etc/pam.d/*; do
 #     sudo sed -i -e s/required/optional/g "${PAM_FILE}"
