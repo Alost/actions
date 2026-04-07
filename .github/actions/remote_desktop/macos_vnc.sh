@@ -114,16 +114,16 @@ defaults write com.apple.Accessibility DifferentiateWithoutColor -int 1
 defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
 defaults write com.apple.universalaccess reduceMotion -int 1
 defaults write com.apple.universalaccess reduceTransparency -int 1
-sudo /usr/bin/defaults write .GlobalPreferences MultipleSessionsEnabled -bool TRUE
+sudo defaults write .GlobalPreferences MultipleSessionsEnabled -bool TRUE
 defaults write "Apple Global Domain" MultipleSessionsEnabled -bool true
-sudo /usr/bin/defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool false
-sudo /usr/bin/defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
-sudo /usr/bin/defaults write com.apple.commerce AutoUpdate -bool false
-sudo /usr/bin/defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
-sudo /usr/bin/defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 0
-sudo /usr/bin/defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 0
-sudo /usr/bin/defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 0
-sudo /usr/bin/defaults write com.apple.SoftwareUpdate AutomaticDownload -int 0
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool false
+sudo defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
+sudo defaults write com.apple.commerce AutoUpdate -bool false
+sudo defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
+sudo defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 0
+sudo defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 0
+sudo defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 0
+sudo defaults write com.apple.SoftwareUpdate AutomaticDownload -int 0
 defaults write com.apple.universalaccessAuthWarning /System/Applications/Utilities/Terminal.app -bool true
 defaults write com.apple.universalaccessAuthWarning /usr/libexec -bool true
 defaults write com.apple.universalaccessAuthWarning /usr/libexec/sshd-keygen-wrapper -bool true
