@@ -37,4 +37,4 @@ runs:
         fi
 
     - uses: owenthereal/action-upterm@v1 # touch continue
-      if: ${{ !inputs.detached }}
+      if: ${{ inputs.detached == 'false' }}
