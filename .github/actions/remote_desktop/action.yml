@@ -6,6 +6,10 @@ inputs:
     description: "password"
     required: false
     default: "P@ssw0rd123!"
+  detached:
+    description: "detached"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -33,3 +37,4 @@ runs:
         fi
 
     - uses: owenthereal/action-upterm@v1 # touch continue
+      if: ${{ !inputs.detached }}
