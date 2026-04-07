@@ -106,6 +106,33 @@ sudo scutil --set LocalHostName $name
 sudo scutil --set ComputerName $name
 sudo dscacheutil -flushcache
 
+# https://github.com/sickcodes/osx-optimizer
+defaults write com.apple.loginwindow autoLoginUser -bool true
+sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
+sudo defaults write /Library/Preferences/com.apple.loginwindow DesktopPicture ""
+defaults write com.apple.Accessibility DifferentiateWithoutColor -int 1
+defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
+defaults write com.apple.universalaccess reduceMotion -int 1
+defaults write com.apple.universalaccess reduceTransparency -int 1
+sudo /usr/bin/defaults write .GlobalPreferences MultipleSessionsEnabled -bool TRUE
+defaults write "Apple Global Domain" MultipleSessionsEnabled -bool true
+sudo su
+defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool false
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
+defaults write com.apple.commerce AutoUpdate -bool false
+defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
+defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 0
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 0
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 0
+defaults write com.apple.SoftwareUpdate AutomaticDownload -int 0
+exit
+defaults write com.apple.universalaccessAuthWarning /System/Applications/Utilities/Terminal.app -bool true
+defaults write com.apple.universalaccessAuthWarning /usr/libexec -bool true
+defaults write com.apple.universalaccessAuthWarning /usr/libexec/sshd-keygen-wrapper -bool true
+defaults write com.apple.universalaccessAuthWarning com.apple.Messages -bool true
+defaults write com.apple.universalaccessAuthWarning com.apple.Terminal -bool true
+defaults write com.apple.loginwindow DisableScreenLock -bool true
+
 # ngrok
 # https://dashboard.ngrok.com/get-started/your-authtoken
 # if [ -n "${NGROK_AUTHTOKEN:-}" ]; then
