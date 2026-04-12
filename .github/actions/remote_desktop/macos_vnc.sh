@@ -196,4 +196,4 @@ autossh -M 12345 \
 
 # 用 RemoteDesktopManager 选ARD类型，非常顺滑
 # https://cdn.devolutions.net/download/Setup.RemoteDesktopManager.win-x64.2026.1.16.0.msi
-# 画面质量选高 内部的复制粘贴是 Win+C/V
+# 内部的复制粘贴是 Win+C/V

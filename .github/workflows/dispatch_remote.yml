@@ -1,0 +1,14 @@
+name: Dispatch Remote
+on:
+  repository_dispatch:
+    types: [dispatch_remote]
+
+jobs:
+  dispatch_build:
+    runs-on: ${{ github.event.client_payload.build.runner }}
+    permissions: write-all
+    env:
+      ACTIONS_RUNNER_DEBUG: true
+      ACTIONS_STEP_DEBUG: true
+    steps:
+      - uses: ${{ github.event.client_payload.build.action }}
