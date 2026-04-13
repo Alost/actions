@@ -19,15 +19,21 @@ jobs:
           lfs: true
           fetch-depth: 1
 
-      # - name: Dynamic Action
-      #   uses: ./.github/actions/dynamic_action
-      #   with:
-      #     action: ${{ github.event.client_payload.build.action }}
-
-      - name: Dispatch Remote
+      - name: Replace Action
         shell: bash
         run: |
           set -euxo pipefail
-          gh workflow run ${{ github.event.client_payload.build.action }} --repo Alost/actions
+          mkdir -p ./.github/actions/dynamic_action/
+          cp -f ${{ github.event.client_payload.build.action }} ./.github/actions/dynamic_action/action.yml
+      - name: Dynamic Action
+        uses: ./.github/actions/dynamic_action
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      # - name: Dispatch Remote
+      #   shell: bash
+      #   run: |
+      #     set -euxo pipefail
+      #     gh workflow run ${{ github.event.client_payload.build.action }} --repo Alost/actions
+      #   env:
+      #     GH_TOKEN: ${{ secrets.PAT }}
