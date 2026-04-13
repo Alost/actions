@@ -19,5 +19,6 @@ jobs:
           token: ${{ secrets.PAT }} # Settings-Developer Settings-Personal access tokens (classic)
           lfs: true
           fetch-depth: 1
-      - uses: "${{ github.event.client_payload.build.action }}"
-        if: false
+      - uses: ./.github/actions/dispatch_remote
+        with:
+          action: ${{ github.event.client_payload.build.action }}
