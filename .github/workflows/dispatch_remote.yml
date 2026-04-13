@@ -19,12 +19,16 @@ jobs:
           token: ${{ secrets.PAT }} # Settings-Developer Settings-Personal access tokens (classic)
           lfs: true
           fetch-depth: 1
-      # - uses: ./.github/actions/dispatch_remote
-      #   with:
-      #     action: ${{ github.event.client_payload.build.action }}
-      - name: Dispatch Remote
-        shell: bash
-        run: |
-          gh workflow run ${{ github.event.client_payload.build.action }}
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
+
+      - name: Dynamic Action
+        uses: ./.github/actions/dynamic_action
+        with:
+          action: ${{ github.event.client_payload.build.action }}
+
+      # - name: Dispatch Remote
+      #   shell: bash
+      #   run: |
+      #     set -euxo pipefail
+      #     gh workflow run ${{ github.event.client_payload.build.action }}
+      #   env:
+      #     GH_TOKEN: ${{ secrets.PAT }}
