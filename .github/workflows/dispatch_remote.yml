@@ -18,4 +18,4 @@ jobs:
           token: ${{ secrets.PAT }} # Settings-Developer Settings-Personal access tokens (classic)
           lfs: true
           fetch-depth: 1
-      - uses: ${{ github.event.client_payload.build.action }}
+      - uses: "${{ github.event.client_payload.build.action }}"
