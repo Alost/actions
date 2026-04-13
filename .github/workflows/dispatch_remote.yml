@@ -45,6 +45,7 @@ jobs:
             echo "with:" >> $DYNAMIC_ACTION/action.yml
             echo "$TARGET_WITH" | jq -r 'to_entries[] | "  \(.key): \"\(.value)\""' >> $DYNAMIC_ACTION/action.yml
           fi
+          cat $DYNAMIC_ACTION/action.yml
       - name: Run Dynamic Action
         uses: ./.github/actions/dynamic_action
         env:
