@@ -46,7 +46,7 @@ jobs:
                 id: run
                 uses: $TARGET_ACTION
           EOF
-          if [ "$TARGET_WITH" != "null" ] && [ -n "$TARGET_WITH" ]; then
+          if [ "$TARGET_WITH" != "null" ] && [ "$TARGET_WITH" != "{}" ] && [ -n "$TARGET_WITH" ]; then
             echo "      with:" >> $DYNAMIC_ACTION/action.yml
             echo "$TARGET_WITH" | jq -r 'to_entries[] | "\(.key): \"\(.value)\""' | sed 's/^/        /' >> $DYNAMIC_ACTION/action.yml
           fi
