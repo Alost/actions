@@ -19,19 +19,38 @@ jobs:
           lfs: true
           fetch-depth: 1
 
+      # 参考 https://github.com/jenseng/dynamic-uses
       - name: Create Dynamic Action
         shell: bash
+        env:
+          DYNAMIC_ACTION: ./.github/actions/dynamic_action
+          TARGET_ACTION: ${{ github.event.client_payload.build.action }}
+          TARGET_WITH: ${{ toJSON(github.event.client_payload.build.with) }}
         run: |
           set -euxo pipefail
-          export DYNAMIC_ACTION=./.github/actions/dynamic_action
           rm -rf $DYNAMIC_ACTION
           mkdir -p $DYNAMIC_ACTION
-          cp -rfv ${{ github.event.client_payload.build.action }}/* $DYNAMIC_ACTION
+          # cp -rfv $TARGET_ACTION/* $DYNAMIC_ACTION
+          cat > $DYNAMIC_ACTION/action.yml << 'EOF'
+          name: "Dynamic Action"
+          description: "dynamic action"
+          runs:
+            using: "composite"
+            steps:
+              - name: Run Target Action
+                id: run
+                uses: $TARGET_ACTION
+          EOF
+          if [ "$TARGET_WITH" != "null" ] && [ -n "$TARGET_WITH" ]; then
+            echo "with:" >> $DYNAMIC_ACTION/action.yml
+            echo "$TARGET_WITH" | jq -r 'to_entries[] | "  \(.key): \"\(.value)\""' >> $DYNAMIC_ACTION/action.yml
+          fi
       - name: Run Dynamic Action
         uses: ./.github/actions/dynamic_action
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
 
+      # 在目的仓库新起一个workflow
       # - name: Dispatch Remote
       #   shell: bash
       #   run: |
