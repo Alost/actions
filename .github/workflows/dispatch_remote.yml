@@ -31,7 +31,7 @@ jobs:
           rm -rf $DYNAMIC_ACTION
           mkdir -p $DYNAMIC_ACTION
           # cp -rfv $TARGET_ACTION/* $DYNAMIC_ACTION
-          cat > $DYNAMIC_ACTION/action.yml << 'EOF'
+          cat > $DYNAMIC_ACTION/action.yml << EOF
           name: "Dynamic Action"
           description: "dynamic action"
           runs:
