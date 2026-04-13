@@ -14,9 +14,10 @@ jobs:
       - uses: actions/checkout@v6
         with:
           repository: ${{ github.event.client_payload.repo.name }}
-          ref: ${{ github.event.client_payload.repo.sha }}
+          ref: ${{ github.event.client_payload.repo.ref }}
+          sha: ${{ github.event.client_payload.repo.sha }}
           token: ${{ secrets.PAT }} # Settings-Developer Settings-Personal access tokens (classic)
           lfs: true
           fetch-depth: 1
-      - uses: |-
-        ${{ github.event.client_payload.build.action }}
+      - uses: "${{ github.event.client_payload.build.action }}"
+        if: false
