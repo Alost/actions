@@ -24,8 +24,7 @@ jobs:
       #     SSH_IP: ${{ secrets.SSH_IP }}
       #     SSH_PORT: ${{ secrets.SSH_PORT }}
 
-      # - uses: docker/setup-docker-action@v5
-      - uses: douglascamata/setup-docker-macos-action@v1
+      - uses: docker/setup-docker-action@v5
       - name: Login GHCR
         shell: bash
         run: |
