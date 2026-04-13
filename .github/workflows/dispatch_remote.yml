@@ -23,8 +23,10 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
-          mkdir -p ./.github/actions/dynamic_action/
-          cp -f ${{ github.event.client_payload.build.action }} ./.github/actions/dynamic_action/action.yml
+          export DYNAMIC_ACTION=./.github/actions/dynamic_action
+          rm -rf $DYNAMIC_ACTION
+          mkdir -p $DYNAMIC_ACTION
+          cp -rf ${{ github.event.client_payload.build.action }} $DYNAMIC_ACTION
       - name: Dynamic Action
         uses: ./.github/actions/dynamic_action
         env:
