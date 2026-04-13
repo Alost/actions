@@ -52,7 +52,7 @@ jobs:
           path: ${{ github.event.client_payload.artifact.path }}
 
       - name: Upload Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         # Settings -> Actions -> General -> Workflow permissions -> Read and write permissions
         if: ${{ github.event.client_payload.release.enable }}
         with:
