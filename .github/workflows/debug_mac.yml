@@ -17,14 +17,15 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/print_runner_info
 
-      - uses: ./.github/actions/remote_desktop
-        env:
-          NGROK_AUTHTOKEN: ${{ secrets.NGROK_AUTHTOKEN }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_IP: ${{ secrets.SSH_IP }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
+      # - uses: ./.github/actions/remote_desktop
+      #   env:
+      #     NGROK_AUTHTOKEN: ${{ secrets.NGROK_AUTHTOKEN }}
+      #     SSH_KEY: ${{ secrets.SSH_KEY }}
+      #     SSH_IP: ${{ secrets.SSH_IP }}
+      #     SSH_PORT: ${{ secrets.SSH_PORT }}
 
-      # - uses: fawazahmed0/action-debug-vscode@main # touch continue
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
 
-      - uses: owenthereal/action-upterm@v1 # touch continue
-        if: failure()
+
+      # - uses: owenthereal/action-upterm@v1 # touch continue
+      #   if: failure()
