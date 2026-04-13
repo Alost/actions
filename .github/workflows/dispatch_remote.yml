@@ -19,6 +19,11 @@ jobs:
           lfs: true
           fetch-depth: 1
 
+      - uses: ./.github/actions/print_runner_info
+
+      - uses: ./.github/actions/free_disk_space
+        if: ${{ github.event.client_payload.build.free_disk_space }}
+
       # 参考 https://github.com/jenseng/dynamic-uses
       - name: Create Dynamic Action
         shell: bash
@@ -46,6 +51,10 @@ jobs:
             echo "$TARGET_WITH" | jq -r 'to_entries[] | "\(.key): \"\(.value)\""' | sed 's/^/        /' >> $DYNAMIC_ACTION/action.yml
           fi
           cat $DYNAMIC_ACTION/action.yml
+
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+        if: ${{ github.event.client_payload.build.debug }}
+
       - name: Run Dynamic Action
         uses: ./.github/actions/dynamic_action
         env:
@@ -59,3 +68,23 @@ jobs:
       #     gh workflow run ${{ github.event.client_payload.build.action }} --repo Alost/actions
       #   env:
       #     GH_TOKEN: ${{ secrets.PAT }}
+
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+        if: ${{ github.event.client_payload.build.end_debug }}
+
+      - uses: dawidd6/action-send-mail@v11
+        if: failure()
+        with:
+          server_address: ${{ secrets.SMTP_SERVER_ADDRESS }}
+          server_port: ${{ secrets.SMTP_SERVER_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          from: ${{ secrets.SMTP_USERNAME }}
+          to: ${{ secrets.SMTP_TO }}
+          subject: Github Actions ${{ github.event.client_payload.name }} Build Failed
+          body: |
+            ${{ job.status }}
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+        if: ${{ failure() && github.event.client_payload.build.fail_debug }}
