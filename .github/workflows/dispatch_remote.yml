@@ -19,7 +19,7 @@ jobs:
           lfs: true
           fetch-depth: 1
 
-      - name: Replace Action
+      - name: Create Dynamic Action
         shell: bash
         run: |
           set -euxo pipefail
@@ -27,7 +27,7 @@ jobs:
           rm -rf $DYNAMIC_ACTION
           mkdir -p $DYNAMIC_ACTION
           cp -rfv ${{ github.event.client_payload.build.action }}/* $DYNAMIC_ACTION
-      - name: Dynamic Action
+      - name: Run Dynamic Action
         uses: ./.github/actions/dynamic_action
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
