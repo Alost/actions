@@ -35,8 +35,8 @@ jobs:
       #     username: ${{ github.actor }}
       #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: fawazahmed0/action-debug-vscode@main # touch continue
+      # - uses: fawazahmed0/action-debug-vscode@main # touch continue
 
 
-      # - uses: owenthereal/action-upterm@v1 # touch continue
+      - uses: owenthereal/action-upterm@v1 # touch continue
       #   if: failure()
